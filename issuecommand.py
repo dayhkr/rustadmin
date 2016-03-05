@@ -2,7 +2,7 @@
 from rustadmin import RustAdmin
 
 cs = RustAdmin(url='192.168.1.137:5678', passwd='swUrUBr2kA')
-mess = cs.sndcommand(msg='global.teleportany')
+mess = cs.sndcommand(msg='inventory.giveto dayhkr wood 10000')
 
 print mess['Message']
 #inventory.giveto dayhkr wood 100
