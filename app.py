@@ -5,35 +5,49 @@
 from flask import Flask, render_template, request, url_for
 from rustadmin import RustAdmin
 import ast
+from settings import *
+
 # Initialize the Flask application
 app = Flask(__name__)
 # Define a route for the default URL, which loads the form
 @app.route('/', methods=['GET','POST'])
 def form():
-    #cs = RustAdmin(url='192.168.1.137:5678', passwd='swUrUBr2kA')
+    cs = RustAdmin(url=srvurl, passwd=srvpasswd)
     #mess = cs.sndcommand(msg='playerlist')
     #players = ast.literal_eval(mess['Message'])
 
-    return render_template('form_submit.html', players=getplayer())
+    return render_template('form_submit.html', players=getplayer(), status=getstatus())
 
 # Define a route for the action of the form, for example '/hello/'
 # We are also defining which type of requests this route is
 # accepting: POST requests in this case
-@app.route('/rustitem/', methods=['POST'])
+@app.route('/rustitem/', methods=['GET','POST'])
 def rustitem():
-    cs = RustAdmin(url='192.168.1.137:5678', passwd='swUrUBr2kA')
-    resourceitem=request.form['rustitem']
-    player=request.form['player']
-    itemnum=request.form['itemnum']
-    mess = cs.sndcommand(msg='inventory.giveto ' + player + ' ' + resourceitem + ' ' + itemnum)
-    return render_template('form_submit.html', ritem=resourceitem, mess=mess, players=getplayer())
+    if request.method == "POST":
+        cs = RustAdmin(url=srvurl, passwd=srvpasswd)
+        resourceitem=request.form['rustitem']
+        player=request.form['player']
+        itemnum=request.form['itemnum']
+        mess = cs.sndcommand(msg='inventory.giveto ' + player + ' ' + resourceitem + ' ' + itemnum)
+        print mess['Message']
+        return render_template('form_submit.html', ritem=resourceitem, mess=mess, players=getplayer(), status=getstatus())
+    else:
+        cs = RustAdmin(url=srvurl, passwd=srvpasswd)
+        #mess = cs.sndcommand(msg='playerlist')
+        #players = ast.literal_eval(mess['Message'])
 
+        return render_template('form_submit.html', players=getplayer(), status=getstatus())
 def getplayer():
-    cs = RustAdmin(url='192.168.1.137:5678', passwd='swUrUBr2kA')
+    cs = RustAdmin(url=srvurl, passwd=srvpasswd)
     mess = cs.sndcommand(msg='playerlist')
     players = ast.literal_eval(mess['Message'])
     return players
+
+def getstatus():
+    cs = RustAdmin(url=srvurl, passwd=srvpasswd)
+    return cs.sndcommand(msg='global.status')
 # Run the app :)
+# Need to add keyboard interrupt and close connections
 if __name__ == '__main__':
   app.run(
         host="0.0.0.0",
