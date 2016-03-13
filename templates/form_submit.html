@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <title>Rust Server Admin</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+    <table align="center" width="70%">
+        <tr><td colspan="2">
+            <div class="title"><h1>Rust Server Admin</h1></div></td><td><div class="title"><form method="post" action="{{url_for('logout')}}">
+                <input type="submit" value="Logout" /></form></div></td></tr><tr><td>
+                <div id="content">
+                    <h2>Server Status</h2><br>
+                    <pre>{{status['Message']}}</pre><br>
+
+        </td></tr>
+        <tr><td valign="top" width="50%" height="20%">
+        <div id="container">
+            <div class="title">
+                <h1>Resources And Clothes</h1>
+            </div>
+            <div id="content">
+                <form method="post" action="{{ url_for('rustitem') }}">
+                  <select name="player">
+                  {%for player in players%}
+                  <option value="{{player['DisplayName']}}">{{player['DisplayName']}}</option>
+                  {%endfor%}
+                  </select>
+                  <select name="rustitem">
+                      <option value="wood">Wood</option>
+                      <option value="stones">Stone</option>
+                      <option value="metal.fragments">Metal Fragments</option>
+                      <option value="sulfur">Sulfur</option>
+                      <option value="cloth">Cloth</option>
+                      <option value="bone_fragment">Bone Fragment</option>
+                      <option value="can_beans_empty">Empty Can of Beans</option>
+                      <option value="can_tuna_empty">Empty Can of Tuna</option>
+                      <option value="charcoal">Charcoal</option>
+                      <option value="fat_animal">Animal Fat</option>
+                      <option value="gunpowder">Gun Powder</option>
+                      <option value="lowgradefuel">Low Grade Fuel</option>
+                      <option value="metal_ore">Metal Ore</option>
+                      <option value="paper">Paper</option>
+                      <option value="skull_human">Human Skull</option>
+                      <option value="skull_wolf">Wolf Skull</option>
+                      <option value="sulfur_ore">Sulfur Ore</option>
+                      <option value="attire.hide.boots">Hide Boots</option>
+                      <option value="attire.hide.pants">Hide Pants</option>
+                      <option value="hazmat.boots">Hazmat Boots</option>
+                      <option value="hazmat.pants">Hazmat Pants</option>
+                      <option value="shoes.boots">Boots</option>
+                      <option value="pants">Pants</option>
+                      <option value="burlap.shirt">Burlap Shirt</option>
+                      <option value="tshirt">Tshirt</option>
+                      <option value="tshirt.long">Longsleeve T-Shirt</option>
+                  </select><br />
+                  <label for="itemnum">Enter amount of resource</label>
+                  <input type="text" name="itemnum" /><br />
+                  <input type="submit" />
+                </form>
+            </div>
+            </td><td valign="top" width="50%" height="20%">
+
+        <div id="container">
+            <div class="title">
+                <h1>Tools And Weapons</h1>
+            </div>
+            <div id="content">
+               <form method="post" action="{{ url_for('rustitem') }}">
+                  <select name="player">
+                  {%for player in players%}
+                  <option value="{{player['DisplayName']}}">{{player['DisplayName']}}</option>
+                  {%endfor%}
+                  </select>
+                  <select name="rustitem">
+                      <option value="axe.salvaged">Salvaged Axe</option>
+                      <option value="flare">Flare</option>
+                      <option value="hammer">Hammer</option>
+                      <option value="hammer.salvaged">Salvaged Hammer</option>
+                      <option value="hatchet">Hatchet</option>
+                      <option value="icepick.salvaged">Salvaged Icepick</option>
+                      <option value="pickaxe">Pickaxe</option>
+                      <option value="rock">Rock</option>
+                      <option value="stonehatchet">Stone Hatchet</option>
+                      <option value="torch">Torch</option>
+                      <option value="bow.hunting">Hunting Bow</option>
+                      <option value="knife.bone">Bone Knife</option>
+                      <option value="pistol.eoka">Eoka Pistol</option>
+                      <option value="pistol.revolver">Revolver</option>
+                      <option value="rifle.bolt">Rifle</option>
+                      <option value="shotgun.waterpipe">Waterpipe Shotgun</option>
+                      <option value="smg.thompson">Thompson SMG</option>
+                      <option value="spear.stone">Stone Spear</option>
+                      <option value="spear.wooden">Wooden Spear</option>
+                      <option value="trap.bear">Bear Trap</option>
+                      <option value="ammo.pistol">Pistol Ammo</option>
+                      <option value="ammo.rifle">Rifle Ammo</option>
+                      <option value="ammo.shotgun">Shotgun Ammo</option>
+                      <option value="arrow.wooden">Wooden Arrow</option>
+                      <option value="blueprint_book">Blueprint Book</option>
+                      <option value="blueprint_page">Blueprint Page</option>
+                      <option value="building.planner">Building Plan</option>
+                  </select><br />
+                  <label for="itemnum">Enter amount of resource</label>
+                  <input type="text" name="itemnum" /><br />
+                  <input type="submit" />
+                </form>
+            </div>
+        </div>
+        </td></tr></table>
+    </body>
+</html>
