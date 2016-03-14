@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 from rustadmin import RustAdmin
 
-cs = RustAdmin(url='192.168.1.137:5678', passwd='swUrUBr2kA')
+cs = RustAdmin(url='192.168.1.137:5678', passwd='password')
 mess = cs.sndcommand(msg='inventory.giveto dayhkr wood 10000')
 
 print mess['Message']
