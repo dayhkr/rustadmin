@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-srvurl='<serverIP:rconport>'
+srvurl='<server ip>:<rcon port>'
 srvpasswd = '<rcon password>'
 
 # Weapons, construction items resources atire tool medical food ammunition traps misc

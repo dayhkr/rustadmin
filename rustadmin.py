@@ -18,5 +18,3 @@ class RustAdmin(object):
         result = json.loads(self.ws.recv())
         self.ws.close()
         return result
-
-
