@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
-srvurl='<server ip>:<rcon port>'
-srvpasswd = '<rcon password>'
+srvurl='192.168.1.137:5678'
+srvpasswd = 'swUrUBr2kA'
 
 # Weapons, construction items resources atire tool medical food ammunition traps misc
 items = {
@@ -264,18 +264,25 @@ items = {
 "Note" : "note"}
 }
 
-def contentcode():
+servercmd={"admin":{"Server Owner":"global.ownerid",
+                    "Server Moderator":"global.moderatorid",
+                    "Kick Player":"global.kick",
+                    "Server Message":"global.say"}
+               }
+
+def contentcode(menu=None):
     code = ''
     count = 1
-    for key in items.keys():
+    print menu
+    for key in menu.keys():
            code += '<input type="radio" id="radioButton%s" name="radioButton" value="%s" />%s' % (count, key, key)
            count += 1
 
-    for key in items.keys():
+    for key in menu.keys():
         code += '<select name="%s" id="%s" style="display: none">' %(key, key)
         code += '    <option selected="selected" value="None">Choose %s</option>' % (key)
-        for nitem in items[key]:
-            code += '<option value="%s">%s</option>' % (items[key][nitem], nitem)
+        for nitem in menu[key]:
+            code += '<option value="%s">%s</option>' % (menu[key][nitem], nitem)
         code += '</select>'
 
     return code

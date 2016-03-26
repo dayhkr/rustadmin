@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask.ext.login import LoginManager, login_required, login_user, current_user, logout_user, UserMixin
 from rustadmin import RustAdmin
 import ast
-from settings import srvurl,srvpasswd, contentcode
+from settings import srvurl,srvpasswd, contentcode, items, servercmd
 from datetime import timedelta
 import hashlib
 from itsdangerous import URLSafeTimedSerializer
@@ -133,6 +133,8 @@ def rustitem():
         trap=request.form['trap']
         ammo=request.form['ammunition']
         resource=request.form['resources']
+        cmdarg=request.form['cmdarg']
+        admcmd=request.form['admin']
         #toolitem=request.form['titem']
         player=request.form['player']
         itemnum=request.form['itemnum']
@@ -172,11 +174,18 @@ def rustitem():
             elif ammo != 'None':
                 mess = cs.sndcommand(msg='inventory.giveto "' + player + '" ' + ammo + ' ' + itemnum)
                 error = mess['Message']
+            elif admcmd != 'None' and cmdarg != 'None':
+                mess = cs.sndcommand(msg=admcmd + '(' + cmdarg + ')')
+                error = mess['Message']
+            elif admcmd != 'None':
+                mess = cs.sndcommand(msg=admcmd + '(' + ')')
+                error = mess['Message']
             else:
                 error = "Please Choose an Item"
 
         return render_template('form_submit.html',
-                               itmlist=contentcode(),
+                               itmlist=contentcode(items),
+                               admlist=contentcode(servercmd),
                                mess=mess,
                                players=getplayer(),
                                status=getstatus(),
@@ -188,7 +197,8 @@ def rustitem():
         #players = ast.literal_eval(mess['Message'])
 
         return render_template('form_submit.html',
-                               itmlist=contentcode(),
+                               itmlist=contentcode(items),
+                               admlist=contentcode(servercmd),
                                players=getplayer(),
                                status=getstatus(),
                                console=getconsole())
@@ -215,7 +225,7 @@ if __name__ == '__main__':
 
     #Change the duration of how long the Remember Cookie is valid on the users
     #computer.  This can not really be trusted as a user can edit it.
-    app.config["REMEMBER_COOKIE_DURATION"] = timedelta(days=14)
+    app.config["REMEMBER_COOKIE_DURATION"] = timedelta(days=1)
     #Tell the login manager where to redirect users to display the login page
     login_manager.login_view = "/"
     #Setup the login manager.
