@@ -4,20 +4,20 @@
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-    <table align="center" width="70%">
+    <table>
         <tr><td colspan="2">
 
-            <div class="title"><h1>Rust Server Admin</h1></div></td><td><div class="title"><form method="post" action="{{url_for('logout')}}">
+            <div class="title"><h1>Rust Server Admin</h1></div></td><td style="width:5px;"><div class="title"><form method="post" action="{{url_for('logout')}}">
                 <input type="submit" value="Logout" /></form></div></td></tr>
-        <tr><td>
-            <h2>Server Status</h2><br>
-            <div id="content">
+        <tr><td valign="top">
+            <h2>Server Status</h2>
+            <div id="content" style="width:10%;">
 
                     <pre>{{status['Message']}}</pre><br>
                 </div>
-        </td><td>
-                <h2>Server Console</h2><br>
-                <div id="content" style="height:120px;overflow:auto;">
+        </td><td width="10%" valign="top">
+               <h2>Server Console</h2>
+                <div id="console">
 
                     {%for line in console%}
                     <pre>{{line['Message']}}</pre>
@@ -48,12 +48,26 @@
                   {% endif %}
                 </form>
             </div></div>
-            </td><td valign="top" width="50%" height="20%">
+            </td><td><div id="container">
+            <div class="title">
+                <h1>Admin Comands</h1>
+            </div>
+            <div id="content">
+                <form method="post" action="{{ url_for('rustitem') }}">
+                  {% autoescape false %}
+                  {{admlist}}
+                  {% endautoescape %}
+                  <input type="text" value="None" name="cmdarg" />
+                  <br><br><input type="submit" />
+                  {% if error %}
+                    {{error}}
+                  {% endif %}
 
-
+                </form>
+            </div></div>
         </td></tr></table>
         <script>
-            //window.document.getElementById("noOptions").style.display = "block";
+            window.document.getElementById("admin").style.display = "block";
             //window.document.getElementById("allOptions").style.display = "none";
             function changeOptions() {
                 var form = window.document.getElementById("form");

@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
-srvurl='192.168.1.137:5678'
-srvpasswd = 'swUrUBr2kA'
+srvurl='127.0.0.1:5678'
+srvpasswd = 'password'
 
 # Weapons, construction items resources atire tool medical food ammunition traps misc
 items = {
