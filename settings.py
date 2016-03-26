@@ -2,6 +2,7 @@
 
 srvurl = '127.0.0.1:5678'
 srvpasswd = 'password'
+mode = 'test'
 
 # Weapons, construction items resources atire tool medical food ammunition traps misc
 items = {

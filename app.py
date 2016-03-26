@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask.ext.login import LoginManager, login_required, login_user, current_user, logout_user, UserMixin
 from rustadmin import RustAdmin
 import ast
-from settings import srvurl, srvpasswd, contentcode
+from settings import srvurl, srvpasswd, contentcode, mode
 from datetime import timedelta
 import hashlib
 from itsdangerous import URLSafeTimedSerializer
@@ -190,15 +190,21 @@ def rustitem():
 def getplayer():
     cs = RustAdmin(url=srvurl, passwd=srvpasswd)
     mess = cs.sndcommand(msg='playerlist')
-    players = ast.literal_eval(mess['Message'])
-    return players
+    if mode != 'test':
+        players = ast.literal_eval(mess['Message'])
+        return players
+    else:
+        return '{dayhkr:{"ping": "5"}}'
 
 
 def getconsole():
     cs = RustAdmin(url=srvurl, passwd=srvpasswd)
     mess = cs.sndcommand(msg='console.tail')
-    console = ast.literal_eval(mess['Message'])
-    return console
+    if mode != 'test':
+        console = ast.literal_eval(mess['Message'])
+        return console
+    else:
+        return '{message1:{"stuff": "stuff"}}'
 
 
 def getstatus():
